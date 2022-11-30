@@ -1,5 +1,8 @@
+import { NgFor } from '@angular/common';
 import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { appEmailDomains } from 'src/app/shared/validators/constants';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -9,12 +12,15 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent {
 
+  appEmailDomains = appEmailDomains;
+
   constructor(private activateRoute:ActivatedRoute, private router: Router, private authService: AuthService) {
 
   }
 
-  loginHandler(): void {
-        this.authService.user = {
+  loginHandler(form: NgForm): void {
+   if(form.invalid) { return }
+      this.authService.user = {
       username: 'Jon',
       
    } as any;
